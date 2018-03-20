@@ -1,0 +1,119 @@
+﻿@model ImgLab.ImageModel
+
+    
+
+@using (Html.BeginForm("ImageEdit", "Home", FormMethod.Post, new { id = "editform" }))
+{
+    @Html.AntiForgeryToken()
+    <img src="/Home/GetImage?Id=@Model.Id" alt="img" class="img-responsive img-thumbnail" />
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.Path)
+        @Html.HiddenFor(model => model.DCreation)
+        @Html.HiddenFor(model => model.FocusDist)
+        @Html.HiddenFor(model => model.Exposure)
+        @Html.HiddenFor(model => model.CameraModel)
+        @Html.HiddenFor(model => model.LensModel)
+        @Html.HiddenFor(model => model.SubSatCoord)
+        @Html.HiddenFor(model => model.ExpNum)
+
+        <div class="row">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8 text-left">@Model.Name</label>
+
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Path, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.Path</label>
+
+            </div>
+
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.DCreation, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.DCreation</label>
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.FocusDist, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.FocusDist</label>
+                
+            </div>
+
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Exposure, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.Exposure</label>
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.CameraModel, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.CameraModel</label>
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.LensModel, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.LensModel</label>
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.SubSatCoord, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.SubSatCoord</label>
+                
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.ExpNum, new { @class = "control-label col-md-4" })
+                <label class="control-label col-md-8">@Model.ExpNum</label>
+                
+            </div>
+
+        </div>
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control input-medium" } })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+        
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CenterCoord, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CenterCoord, new { htmlAttributes = new { @class = "form-control input-medium" } })
+                @Html.ValidationMessageFor(model => model.CenterCoord)
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.RadiogramNum, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RadiogramNum, new { htmlAttributes = new { @class = "form-control input-medium" } })
+                @Html.ValidationMessageFor(model => model.RadiogramNum)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Сохранить" class="btn btn-default" onclick="DBModalEditSubmit()" />
+                <a class="btn btn-default pull-right" data-dismiss="modal">Назад</a>
+            </div>
+        </div>
+    </div>
+}
+

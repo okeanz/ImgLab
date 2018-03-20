@@ -1,0 +1,21 @@
+﻿thumbnail img {
+    max-height: 300px;
+    max-width: 300px;
+}
+
+.pagination
+{
+    display:flex;
+    justify-content:center;
+}
+
+.form-horizontal .control-label
+{
+    text-align:left;
+}
+
+.modal-body
+{
+    max-height:calc(100vh - 210px);
+    overflow-y:auto;
+}

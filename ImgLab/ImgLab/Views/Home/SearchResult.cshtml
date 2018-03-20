@@ -1,0 +1,26 @@
+﻿@using System.Web.UI.WebControls
+
+@{
+    ViewBag.Title = "Search Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/paginationjs.js"></script>
+
+<h4>Founded @ViewBag.Amount images</h4>
+
+<div class="main">
+    <script type="text/javascript">
+        var array = @Html.Raw(Json.Encode(ViewBag.Names));
+        Dates = @Html.Raw(Json.Encode(ViewBag.Dates));
+        imageContainer(array,0,6);
+    </script>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImgLab", "ImgLab\ImgLab.csproj", "{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugHome|Any CPU = DebugHome|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}.DebugHome|Any CPU.ActiveCfg = DebugHome|Any CPU
+		{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}.DebugHome|Any CPU.Build.0 = DebugHome|Any CPU
+		{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D4D8182-D42D-45A5-9CAF-64AC351D2ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0265025-7FED-4EC6-8C09-FB116643A9E6}
+	EndGlobalSection
+EndGlobal

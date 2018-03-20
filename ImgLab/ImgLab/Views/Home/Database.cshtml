@@ -1,0 +1,172 @@
+﻿@model ImgLab.SearchRequestModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Database", "Home", FormMethod.Post, new { }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.FileName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Имя файла..." } })
+                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Описание..." } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.DateStart, new { htmlAttributes = new { @class = "form-control", @placeholder = "От ДД.ММ.ГГГГ" } })
+                @Html.ValidationMessageFor(model => model.DateStart, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control", @placeholder = "До ДД.ММ.ГГГГ" } })
+                @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.DropDownListFor(model => model.Exp, Model.ExpList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Exp, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-2">
+                @Html.DropDownListFor(model => model.PhotoModel, Model.ModelList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PhotoModel, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2">
+                <input type="submit" value="Поиск" class="btn btn-default" />
+            </div>
+            </div>
+        </div>
+}
+
+
+<div class="images container-fluid">
+
+
+</div>
+<ul class="pagination"></ul>
+
+<script>
+    var pages = @Html.Raw(Json.Encode(ViewBag.Pages));
+    var ipage = 0;
+
+    var imgs = $('.images');
+    var pg = $('.pagination');
+
+    $(function ()
+    {
+        fillImgs();
+
+        for(var i=0;i<pages.length;i++)
+        {
+            if(i==ipage)
+                pg.append('<li id="pg'+i+'" class="active"><a href="#" onClick="page('+(i)+')">' + (i+1) + '</a></li>');
+            else
+                pg.append('<li id="pg'+i+'"><a href="#" onClick="page('+(i)+')">' + (i+1) + '</a></li>');
+        }
+
+    })
+
+    function fillImgs()
+    {
+        var page = pages[ipage];
+        for(var i=0;i<page.length;i++)
+        {
+            var p = page[i];
+            imgs.append(getthumb(p.Id, p.Name, p.Description));
+        }
+    }
+
+    function page(i)
+    {
+        imgs.empty();
+        $('.active').removeClass();
+        $('#pg'+i).addClass('active');
+        ipage = i;
+        fillImgs();
+    }
+
+    function getthumb(id, name, caption)
+    {
+        var html = '';
+        html += '<div class="col-md-4">';
+        html += '<div class="thumbnail" onClick = showmodalinfo('+id+')>';
+        html += '<img src="/Home/GetImageThumb?Id=' + id + '" alt="img" class="img-responsive img-thumbnail" />';
+        html += '<div class="caption">Имя файла: ' + name + '</div>';
+        html += '<div class="caption">Описание: ' + caption + '</div>';
+        html += '</div>';
+        html += '</div>';
+        return html;
+    }
+    
+    function showmodalinfo(id)
+    {
+        waitingDialog.show("Загрузка");
+
+        $.ajax({
+            type: "GET", url: "/Home/ImageEdit/" + id,
+            timeout: 10000, async: true,
+            error: function (xhr) {
+                waitingDialog.hide();
+                alert('Ошибка! ' + xhr.status + ' ' + xhr.statusText);
+            },
+            success: function (a) {
+                waitingDialog.hide();
+                $("#dbmodal").modal("toggle");
+                $("#dbmodalbody").html(a);
+            }
+        });
+    }
+
+
+    function DBModalEditSubmit() {
+        waitingDialog.show("Загрузка");
+        $.ajax({
+            type: 'POST',
+            url: '/Home/ImageEdit',
+            data: $('#editform').serialize(),
+            error: function (xhr) {
+                waitingDialog.hide();
+                alert('Ошибка! ' + xhr.status + ' ' + xhr.statusText);
+            },
+            success: function (a) {
+                waitingDialog.hide();
+                $('#dbmodalbody').html(a);
+            }
+        });
+    }
+
+</script>
+
+
+
+
+<div id="dbmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="modaltitle" class="modal-title">Подробно</h4>
+            </div>
+
+            <div id="dbmodalbody" class="modal-body">
+
+            </div>
+        </div>
+
+    </div>
+</div>
